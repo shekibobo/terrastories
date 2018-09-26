@@ -23,7 +23,7 @@ while true; do
 terrastories as a service intended for a deployed production environment. Are \
 you sure you want to proceed? y/N " yn
     case $yn in
-        [Yy]* ) do_install; break;;
+        [Yy]* ) bin/uninstall; do_install; break;;
         * ) exit;;
     esac
 done

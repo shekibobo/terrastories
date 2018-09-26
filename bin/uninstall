@@ -1,0 +1,19 @@
+#!/bin/bash
+
+do_uninstall() {
+  service stop terrastories
+  rm /etc/init/terrastories.conf
+  rm /bin/terrastories-start
+  rm /bin/terrastories-update
+  rm -rf /opt/terrastories
+}
+
+while true; do
+    read -p "This is not a typical development command. It will uninstall \
+terrastories and remove all its related files from a deployed environment.\
+Are you sure you want to proceed? y/N " yn
+    case $yn in
+        [Yy]* ) do_uninstall; break;;
+        * ) exit;;
+    esac
+done
