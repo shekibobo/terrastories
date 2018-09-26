@@ -2,6 +2,8 @@
 
 # Install docker if not already installed
 if [ "$(which docker)" == "" ]; then
+  sudo apt-get install apt-transport-https ca-certificates software-properties-common
+
   # First, add the GPG key for the official Docker repository to the system:
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
