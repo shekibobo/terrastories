@@ -1,7 +1,11 @@
 #!/bin/bash
 
 do_uninstall() {
-  /opt/terrastories/bin/uninstall -y
+  service stop terrastories
+  rm /etc/init/terrastories.conf
+  rm /bin/terrastories-start
+  rm /bin/terrastories-update
+  rm -rf /opt/terrastories
 }
 
 do_install() {
