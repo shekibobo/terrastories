@@ -2,7 +2,7 @@
 
 # Install docker if not already installed
 if [ "$(which docker)" == "" ]; then
-  sudo apt-get install apt-transport-https ca-certificates software-properties-common
+  sudo apt-get install -y apt-transport-https ca-certificates software-properties-common
 
   # First, add the GPG key for the official Docker repository to the system:
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -15,4 +15,9 @@ if [ "$(which docker)" == "" ]; then
 
   #Finally, install Docker:
   sudo apt-get install -y docker-ce
+fi
+
+if [ "$(which docker-compose)" == "" ]; then
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /bin/docker-compose
+  chmod a+x /bin/docker-compose
 fi

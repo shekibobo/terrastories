@@ -15,15 +15,15 @@ do_install() {
   cd /opt/terrastories && bin/bootstrap && bin/setup
 
   # Create a symbolic link to the executable scripts in /bin
-  cd /bin && ln -s /opt/terrastories/bin/start.sh terrastories-start
-  cd /bin && ln -s /opt/terrastories/bin/update.sh terrastories-update
+  cd /bin && ln -s /opt/terrastories/bin/start terrastories-start
+  cd /bin && ln -s /opt/terrastories/bin/update terrastories-update
 
   # Create a symbolic link to the upstart service configuration
   cd /etc/init && ln -s /opt/terrastories/conf/terrastories.conf
 
   # Stat the terrastories service
   initctl reload-configuration
-  service start terrastories
+  service terrastories start
 }
 
 prompt_for_install() {
