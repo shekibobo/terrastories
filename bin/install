@@ -3,6 +3,7 @@
 do_install() {
   # Clone the terrastories repository to a known location in /opt/terrastories
   git clone https://github.com/rubyforgood/terrastories.git /opt/terrastories
+  cd /opt/terrastories && git checkout convenience-scripts
   cd /opt/terrastories && bin/bootstrap && bin/setup
 
   # Create a symbolic link to the executable scripts in /bin
