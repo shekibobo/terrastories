@@ -20,22 +20,26 @@ Are you sure you want to proceed? y/N " yn
   done
 }
 
-force_yes=0
+main() {
+  force_yes=0
 
-while getopts ":y" opt; do
-  case $opt in
-    y)
-      force_yes=1
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-  esac
-done
+  while getopts ":y" opt; do
+    case $opt in
+      y)
+        force_yes=1
+        ;;
+      \?)
+        echo "Invalid option: -$OPTARG" >&2
+        exit 1
+        ;;
+    esac
+  done
 
-if [ $force_yes == 1 ]; then
-  do_uninstall;
-else
-  prompt_for_uninstall
-fi
+  if [ $force_yes == 1 ]; then
+    do_uninstall;
+  else
+    prompt_for_uninstall
+  fi
+}
+
+main
