@@ -8,12 +8,34 @@ do_uninstall() {
   rm -rf /opt/terrastories
 }
 
-while true; do
+prompt_for_uninstall() {
+  while true; do
     read -p "This is not a typical development command. It will uninstall \
 terrastories and remove all its related files from a deployed environment.\
 Are you sure you want to proceed? y/N " yn
     case $yn in
-        [Yy]* ) do_uninstall; break;;
-        * ) exit;;
+      [Yy]* ) do_uninstall; break;;
+      * ) exit;;
     esac
+  done
+}
+
+force_yes=false
+
+while getopts ":y" opt; do
+  case $opt in
+    y)
+      force_yes=true
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
 done
+
+if [ $force_yes == true ]; then
+  do_uninstall;
+else
+  prompt_for_uninstall
+fi

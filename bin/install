@@ -1,5 +1,9 @@
 #!/bin/bash
 
+do_uninstall() {
+  /opt/terrastories/bin/uninstall -y
+}
+
 do_install() {
   # Clone the terrastories repository to a known location in /opt/terrastories
   git clone https://github.com/rubyforgood/terrastories.git /opt/terrastories
@@ -18,12 +22,34 @@ do_install() {
   service start terrastories
 }
 
-while true; do
-    read -p "This is not a typical development command. It will install \
+prompt_for_install() {
+  while true; do
+      read -p "This is not a typical development command. It will install \
 terrastories as a service intended for a deployed production environment. Are \
 you sure you want to proceed? y/N " yn
-    case $yn in
-        [Yy]* ) bin/uninstall; do_install; break;;
-        * ) exit;;
-    esac
+      case $yn in
+          [Yy]* ) do_uninstall && do_install; break;;
+          * ) exit;;
+      esac
+  done
+}
+
+force_yes=false
+
+while getopts ":y" opt; do
+  case $opt in
+    y)
+      force_yes=true
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
 done
+
+if [ $force_yes == true ]; then
+  do_uninstall && do_install;
+else
+  prompt_for_install
+fi
